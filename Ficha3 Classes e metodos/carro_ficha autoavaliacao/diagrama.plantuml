@@ -1,0 +1,119 @@
+@startuml DiagramaComGrowingArray
+!define DARKBLUE
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+
+
+skinparam Style strictuml
+
+
+class legenda{
+    + -> public
+    - -> private
+}
+
+class Stand{
+    -->VARIAVEIS
+    +GrowingArray carrosArr
+    ----
+    -->CONSTRUTORES
+    +Stand()
+    +Stand(Stand s)
+    +Stand(Carro[] carros, int pos)
+    ----
+    -->METODOS 
+    +getCarros() : Carro[] 
+    +getPos() : int
+    ....
+    +setCarros(Carro[] carros) : void
+    +setPos(int pos) : void
+    ....
+    +equals(Stand o) : boolean
+    +String toString() 
+    +Stand clone()
+}
+
+note bottom: A variavel carrosArr é public pois assim \npodemos manipular esse array com os seus \nmétodos a partir da main
+
+class Carro{
+    -->VARIAVEIS
+    -marca : String
+    -modelo : String
+    -ano : Int
+    -consumo : Double
+    -kmsTotal : Double
+    -mediaTotal : Double
+    -kmsUltimo : Double
+    -mediaUltima : Double
+    -abateAoConsumo : Double
+    -estado : boolean
+    ----
+    -->CONSTRUTORES
+    +Carro()
+    +Carro("todas as variaveis")
+    +Carro(Carro c )
+    ----
+    -->METODOS 
+    +getMarca() : String
+    +getModelo() : String
+    +getAno() : int
+    +getConsumo() : Double
+    +getKmsTotal() : Double
+    +getMediaTotal() : Double
+    +getKmsUltimo() : Double
+    +getMediaUltima() : Double
+    +getAbateAoConsumo() : Double
+    +getEstado() : boolean
+    ....
+    +setMarca(marca : String)  : void
+    +setModelo(modelo : String) : void
+    +setAno(ano : int)  : void
+    +setConsumo(consumo : Double)  : void
+    +setKmsTotal(kmsTotal : Double)  : void
+    +setMediaTotal(mediaTotal : Double)  : void
+    +setKmsUltimo(kmsUltimo : Double)  : void
+    +setMediaUltima(mediaUltima : Double)  : void
+    +setAbateAoConsumo(abateAoConsumo : Double)  : void
+    +setEstado(estado : boolean)  : void
+    ....
+    +toString () : String
+    +clone () : Carro
+    +equals () : Boolean
+    ....
+    +ligaCarro () : void
+    +desligaCarro () : void
+    +resetUltimaViagem () : void
+    +avancaCarro (metros : Double, velocidade : Double) : void
+    +travaCarro (metros : Double) : void
+
+
+}
+
+class GrowingArray{
+    -->VARIAVEIS
+    -carros : CARRO []
+    -size : int
+    -<u>initialSize : int = 10
+    ----
+    -->CONSTRUTORES
+    +GrowingArray()
+    +GrowingArray(capacidade : int)
+    ----
+    -->METODOS
+    +get(indice : int) : Carro
+    +add(c : Carro) : void
+    +add(indice : int, c : Carro) : void
+    +set(indice : int, c : Carro) : void
+    +remove(indice : int) : Carro 
+    +remove(c : Carro) : boolean
+    +size() : int
+    +indexOf(c : Carro) : int
+    +contains(c : Carro) : boolean 
+    +isEmpty() : boolean     
+}
+
+skinparam SequenceMessageAlignment center
+Stand *--left--> Carro: \t-Carro\n\t0..*
+Stand *-> GrowingArray: \t-GrowingArray\n\t1 
+legenda -[hidden]-> GrowingArray
+
+@enduml

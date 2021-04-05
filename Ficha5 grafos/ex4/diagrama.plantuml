@@ -1,0 +1,119 @@
+@startuml Diagrama
+!define DARKBLUE
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
+
+skinparam Style strictuml
+
+
+class LEGENDA {
+    Diagrama ex4 da Ficha5 de POO
+    
+    LEGENDA
+    + -> public
+    - -> private
+}
+
+Class TestePrograma{
+    +main(args : String) : void
+}
+
+
+class GestaoEncomendas {
+    ----
+    -encomendas : Map<String,EncEficiente>
+    ----
+    +<<create>> GestaoEncomendas()
+    +<<create>> GestaoEncomendas(enc : Map<String,EncEficiente>)
+    +<<create>> GestaoEncomendas(enc : GestaoEncomendas)
+    +getEncomendas() : Map<String,EncEficiente>
+    +setEncomendas(enc : Map<String,EncEficiente>)
+    +toString() : String
+    +equals(o : Object) : boolean
+    +clone() : GestaoEncomendas
+    +todosCodigosEnc() : Set<String>
+    +addEncomenda(enc : EncEficiente)
+    +getEncomenda(codEnc : String) : EncEficiente
+    +removeEncomenda(codEnc : String)
+    +encomendaComMaisProdutos() : String
+    +encomendasComProduto(codProd : String) : Set<String>
+    +encomendasAposData(d : LocalDate) : Set<String>
+    +encomendasValorDecrescente() : Set<EncEficiente>
+    +encomendasDeProduto() : Map<String,List<String>>
+
+}
+
+
+class EncEficiente { 
+    ----
+    -nome : String
+    -nif : int
+    -morada : String
+    -numeroDaEncomenda : String
+    -data : LocalDate
+    -linhas : ArrayList<Linhadeencomenda>
+    ----
+    +<<create>> EncEficiente()
+    +<<create>> EncEficiente(nome : String, nif : int, morada : String, numeroDaEncomenda : String, data : LocalDate, linhas : ArrayList<Linhadeencomenda>)
+    +<<create>> EncEficiente(nome : String, nif : int, morada : String, numeroDaEncomenda : String, data : LocalDate)
+    +<<create>> EncEficiente(e : EncEficiente)
+    +getNome() : String
+    +setNome(nome : String)
+    +getNif() : int
+    +setNif(nif : int)
+    +getMorada() : String
+    +setMorada(morada : String)
+    +getNumeroDaEncomenda() : String
+    +setNumeroDaEncomenda(numeroDaEncomenda : String)
+    +getData() : LocalDate
+    +setData(data : LocalDate)
+    +getLinhas() : ArrayList<Linhadeencomenda>
+    +clone() : EncEficiente
+    +equals(e : EncEficiente) : boolean
+    +toString() : String
+    +getSize() : int
+    +calculaValorTotal() : double
+    +calculaValorDesconto() : double
+    +numeroTotalProdutos() : int
+    +existeProdutoEncomenda(refProduto : String) : boolean
+    +adicionaLinha(linha : Linhadeencomenda)
+    +removeProduto(codProd : String)
+}
+
+
+class Linhadeencomenda {
+    ----
+    -referencia : String
+    -discricao : String
+    -precoSemImposto : Double
+    -quantidade : int
+    -imposto : int
+    -desconto : int
+    ----
+    +<<create>> Linhadeencomenda()
+    +<<create>> Linhadeencomenda(ref : String, discricao : String, preco : Double, quantidade : int, imposto : int, desconto : int)
+    +<<create>> Linhadeencomenda(l : Linhadeencomenda)
+    +clone() : Linhadeencomenda
+    +equals(l : Linhadeencomenda) : Boolean
+    +toString() : String
+    +getReferencia() : String
+    +getDescricao() : String
+    +getPrecoSemImposto() : Double
+    +getQuantidade() : int
+    +getImposto() : int
+    +getDesconto() : int
+    +setReferencia(ref : String)
+    +setDescricao(disc : String)
+    +setPrecoSemImposto(p : Double)
+    +setQuantidade(q : int)
+    +setImposto(i : int)
+    +setDesconco(d : int)
+    +calculaValorLinhaEnc() : double
+    +calculaValorDesconto() : double
+}
+
+EncEficiente *--left-> Linhadeencomenda
+GestaoEncomendas *--left-> EncEficiente
+TestePrograma ---> GestaoEncomendas
+LEGENDA --[hidden]->Linhadeencomenda
+
+@enduml
